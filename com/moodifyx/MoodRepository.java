@@ -4,9 +4,27 @@ import java.util.*;
 
 public class MoodRepository {
     private final Map<String, List<Song>> moodSongs = new HashMap<>();
-    
+
+    public MoodRepository(){
+        initializeMoodSongs();
+    }
+
     private void initializeMoodSongs(){
-        Map<String, String[]> moodFiles = Map.of();
+        Map<String, String[]> moodFiles = Map.of(
+            "Happy", new String[] {"happygirl.wav", "happygirlie.wav"},
+            "Angry", new String[] {"angrygirl.wav", "angrygirlie.wav"},
+            "Chill", new String[] {"chillgirl.wav", "chillgirlie.wav"},
+            "Mysterious", new String[] {"mysteriousgirl.wav", "mysteriousgirlie.wav"},
+            "Moody", new String[] {"moodygirl.wav", "moodygirlie.wav"},
+            "Practice", new String[] {"practicegirl.wav", "practicegirlie.wav"},
+            "Romantic", new String[] {"romanticgirl.wav", "romanticgirlie.wav"},
+            "Peaceful", new String[] {"peacefulgirl.wav", "peacefulgirlie.wav"},
+            "Positive", new String[] {"positivegirl.wav", "positivegirlie.wav"}
+        );
+
+        for(Map.Entry<String, String[]> entry : moodFiles.entrySet()){
+            addMood(entry.getKey(), entry.getValue());
+        }
     }
     
     private String formatTitle(String fileName){
@@ -24,12 +42,16 @@ public class MoodRepository {
     private void addMood(String mood, String[] files){
         List<Song> songs = new ArrayList<>();
         for(String file: files){
-            songs.add(new Song(formatTitle(file), "music/ " +file));
+            songs.add(new Song(formatTitle(file), "music/" + file));
         }
         moodSongs.put(mood, songs);
     }
 
     public List<Song> getSongsForMood(String mood){
         return moodSongs.getOrDefault(mood, List.of(new Song("Default Vibe", "music/happygirl.wav")));
+    }
+
+    public Set<String> getAllMoods(){
+        return moodSongs.keySet();
     }
 }
