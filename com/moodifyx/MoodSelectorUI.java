@@ -1,3 +1,5 @@
+// class for selecting moods
+
 package com.moodifyx;
 
 import javax.swing.*;
